@@ -1,1 +1,3 @@
-# Library
+# Project Library
+
+Javascript Objects
