@@ -23,17 +23,28 @@ library.push(book1);
 const addBtn = document.querySelector("#add-book");
 addBtn.addEventListener("click", displayForm);
 
+const formOverlay = document.querySelector("#form-overlay");
 function displayForm() {
-  document.querySelector("#overlay").style.display = "flex";
+  formOverlay.style.display = "flex";
   const titleInput = document.querySelector("#title");
   titleInput.focus();
-  document.querySelector(".book-input").addEventListener("submit", (e) => {
+  document.querySelector(".book-details").addEventListener("submit", (e) => {
     e.preventDefault();
     console.log(titleInput.value);
     addBook(titleInput.value);
     off(e);
   });
 }
+
+formOverlay.addEventListener("keyup", off);
+const closeX = document.querySelector("#close");
+closeX.addEventListener("click", off);
+function off(e) {
+  if (e.key === "Escape" || e.type === "click" || e.type === "submit") {
+    formOverlay.style.display = "none";
+  }
+}
+
 function addBook(title) {
   const book = Object.create(Book);
   book.title = title;

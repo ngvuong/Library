@@ -5,80 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <button id="add-book">Add Book</button>
-    <style>
-      #overlay {
-        position: fixed;
-        display: none;
-        width: 50%;
-        height: 50%;
-        /* top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0; */
-        background-color: rgba(0,0,0,0.5);
-        z-index: 2;
-        cursor: pointer;
-        justify-content: center;
-        align-items: center;
-        margin-right:50px;
-        margin-left: auto;
-      }
-      
-      /* #text{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-size: 50px;
-        color: white;
-        transform: translate(-50%,-50%);
-        -ms-transform: translate(-50%,-50%);
-
-      } */
-      #close {
-        font-size: 20px;
-        color: red;
-        margin-right: 10px;
-        margin-left: auto;
-      }
-      </style>
       </head>
       <body>
       
-      <div id="overlay" tabindex="-1">
-        <span id="close">x</span>
-        <div id="text" >
-          <form action="" class="book-input">
-            <input type="text" id="title">
+      <div id="form-overlay" tabindex="-1">
+        <p id="close">x</p>
+        
+          <form action="" class="book-details">
+            <label for="title">Title</label>
+            <div>
+              <input type="text" id="title">
+            </div>
+            <label for="author">Author</label>
+            <div>
+              <input type="text" id="author">
+            </div>
+            <label for="pages">Pages</label>
+            <div>
+              <input type="text" id="pages">
+            </div>
+            <label for="read">Read</label>
+            <div>
+              <input type="text" id="read">
+            </div>
+            <label for="recommended">Recommended</label>
+            <div>
+              <input type="text" id="recommended">
+            </div>
             <button id="submit">Submit</button>
           </form>
-        </div>
+        
       </div>
       
-      <div style="padding:20px">
-        <h2>Overlay with Text</h2>
-        <button onclick="on()">Turn on overlay effect</button>
-      </div>
       
-      <script>
-      function on() {
-        document.getElementById("overlay").style.display = "flex";
-        document.querySelector('input').focus();
-      }
-      const inputOverlay = document.querySelector('#overlay')
-      inputOverlay.addEventListener('keyup', off)
-      const closeX = document.querySelector('#close')
-      closeX.addEventListener('click', off)
-      function off(e) {
-        if(e.key === 'Escape' || e.type === 'click' || e.type === 'submit') {
-
-          inputOverlay.style.display = "none";
-          // document.getElementById("overlay").style.display = 'hidden'
-        }
-      }
-      </script>
     <form action=""></form>
     <div class="book-display">
       <ol class="book-list"></ol>

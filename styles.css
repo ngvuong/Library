@@ -1,0 +1,32 @@
+#form-overlay {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  width: 50%;
+  /* height: 75%; */
+
+  background-color: rgb(234, 238, 13);
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  /* margin-right: 50px;
+  margin-left: auto; */
+  margin: auto;
+}
+
+/* #text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+
+} */
+#close {
+  font-size: 20px;
+  color: red;
+  margin-right: 10px;
+  margin-left: auto;
+}
