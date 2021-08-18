@@ -5,50 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <button id="add-book">Add Book</button>
-      </head>
-      <body>
-      
-      <div id="form-overlay" tabindex="-1">
-        <p id="close">x</p>
-        
-          <form action="" class="book-details">
-            <label for="title">Title</label>
-            <div>
-              <input type="text" id="title" required>
-            </div>
-            <label for="author">Author</label>
-            <div>
-              <input type="text" id="author">
-            </div>
-            <label for="pages">Pages</label>
-            <div>
-              <input type="text" id="pages">
-            </div>
-            <p>Have you read this book?</p>
-            <div>
-              <label for="yes">Yes</label>
-              <input type="radio" id="yes" name="yes">
-              <label for="no">No</label>
-              <input type="radio" id="no" name="no">
-            </div>
-            <label for="recommended">Recommended?</label>
-            <div>
-              <checkbox id="recommended">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </checkbox>
-            </div>
-            <button id="submit">Submit</button>
-          </form>
-        
-      </div>
-      
-      
-    <form action=""></form>
+    <button class="add-book">Add Book</button>
+
+    <div class="form-overlay" tabindex="-1">
+      <p id="close">x</p>
+
+      <form action="" class="form">
+        <label for="title">Title</label>
+        <div>
+          <input type="text" id="title" />
+        </div>
+        <label for="author">Author</label>
+        <div>
+          <input type="text" id="author" />
+        </div>
+        <label for="pages">Pages</label>
+        <div>
+          <input type="text" id="pages" />
+        </div>
+        <p>Have you read this book?</p>
+        <div>
+          <label for="read">Yes</label>
+          <input type="radio" id="read" name="read" value="true" />
+          <label for="no">No</label>
+          <input type="radio" id="not-read" name="read" value="false" />
+        </div>
+        <!-- <p for="recommended">Recommended?</p> -->
+        <!-- <div class="recommend">
+          <checkbox id="recommended">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </checkbox>
+        </div> -->
+        <button id="submit">Submit</button>
+      </form>
+    </div>
+
     <div class="book-display">
       <ol class="book-list"></ol>
     </div>
