@@ -1,5 +1,5 @@
 #form-overlay {
-  position: relative;
+  /* position: relative; */
   display: none;
   flex-direction: column;
   width: 50%;
@@ -29,4 +29,8 @@
   color: red;
   margin-right: 10px;
   margin-left: auto;
+}
+
+#submit {
+  margin: 5px 0;
 }
