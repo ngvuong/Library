@@ -20,13 +20,14 @@ function Book(title, author, pages, read, rating = null) {
 
 const book1 = new Book();
 book1.title = "Test";
-library.push(book1);
+book2 = new Book("I", "me", 321, true);
+library.push(book1, book2);
 
 const addBookBtn = document.querySelector(".add-book");
 const formOverlay = document.querySelector(".form-overlay");
 const bookForm = document.querySelector(".form");
-const bookList = document.querySelector(".book-list");
-const xClose = document.querySelector("#close");
+const bookDisplay = document.querySelector(".book-display");
+// const xClose = document.querySelector("#close");
 
 addBookBtn.addEventListener("click", displayForm);
 
@@ -38,7 +39,7 @@ bookForm.addEventListener("submit", function (e) {
 
 // Closing form
 formOverlay.addEventListener("keydown", closeForm);
-xClose.addEventListener("click", closeForm);
+// xClose.addEventListener("click", closeForm);
 
 formOverlay.addEventListener("click", (e) => {
   closeForm(e);
@@ -65,7 +66,7 @@ function addBook(e) {
   const { title, author, pages, read } = getBookDetails(inputs);
   const book = new Book(title, author, pages, read);
   library.push(book);
-  displayBooks();
+  displayBooks(book);
 }
 
 function getBookDetails(inputs) {
@@ -77,19 +78,40 @@ function getBookDetails(inputs) {
   };
 }
 
-function displayBooks() {
-  bookList.textContent = "";
-  parseBooks();
+function displayBooks(book) {
+  // bookDisplay.textContent = "";
+  // parseBooks();
+  const newBook = document.createElement("div");
+  newBook.classList.add("book");
+  newBook.textContent = `${book.title} by ${book.author}, ${
+    book.pages
+  } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
+  bookDisplay.insertAdjacentElement("afterbegin", newBook);
+  addListener(newBook);
 }
 
-displayBooks();
+for (let book of library) {
+  displayBooks(book);
+  addListener(book);
+}
 
 function parseBooks() {
-  for (book of library) {
-    const newBook = document.createElement("li");
+  for (let book of library) {
+    const newBook = document.createElement("div");
+    newBook.classList.add("book");
     newBook.textContent = `${book.title} by ${book.author}, ${
       book.pages
     } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
-    bookList.append(newBook);
+    bookDisplay.insertAdjacentElement("afterbegin", newBook);
   }
+}
+
+function addListener() {
+  const book = document.querySelector(".book");
+  book.addEventListener("click", showDetails);
+}
+
+function showDetails(e) {
+  bookDisplay.classList.add("flag");
+  e.target.classList.toggle("expand");
 }
