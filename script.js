@@ -18,8 +18,7 @@ function Book(title, author, pages, read, rating = null) {
   this.rating = rating;
 }
 
-const book1 = new Book();
-book1.title = "Test";
+const book1 = new Book("The Martian", "Andy Weir", 200, true, 5);
 book2 = new Book("I", "me", 321, true);
 library.push(book1, book2);
 
@@ -63,55 +62,61 @@ function closeForm(e) {
 
 function addBook(e) {
   const inputs = e.target.elements;
-  const { title, author, pages, read } = getBookDetails(inputs);
-  const book = new Book(title, author, pages, read);
+  const book = getBookDetails(inputs);
   library.push(book);
-  displayBooks(book);
+  displayBook(book);
 }
 
 function getBookDetails(inputs) {
-  return {
-    title: inputs.title.value,
-    author: inputs.author.value,
-    pages: inputs.pages.value,
-    read: inputs.read.value,
-  };
+  return new Book(
+    inputs.title.value,
+    inputs.author.value,
+    inputs.pages.value,
+    inputs.read.value
+  );
 }
 
-function displayBooks(book) {
-  // bookDisplay.textContent = "";
-  // parseBooks();
+function displayBook(book) {
   const newBook = document.createElement("div");
-  newBook.classList.add("book");
-  newBook.textContent = `${book.title} by ${book.author}, ${
-    book.pages
-  } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
+  const bookDetails = document.createElement("div");
+  bookDetails.innerText = `Author: ${book.author}
+   Pages: ${book.pages} 
+   ${book.read ? "Read ✓" : "Not yet read"}`;
+
+  newBook.classList.add("book-card");
+  newBook.textContent = `${book.title}`;
+  newBook.append(bookDetails);
   bookDisplay.insertAdjacentElement("afterbegin", newBook);
   addListener(newBook);
 }
 
 for (let book of library) {
-  displayBooks(book);
-  addListener(book);
+  displayBook(book);
 }
 
-function parseBooks() {
-  for (let book of library) {
-    const newBook = document.createElement("div");
-    newBook.classList.add("book");
-    newBook.textContent = `${book.title} by ${book.author}, ${
-      book.pages
-    } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
-    bookDisplay.insertAdjacentElement("afterbegin", newBook);
-  }
-}
+// function parseBooks() {
+//   for (let book of library) {
+//     const newBook = document.createElement("div");
+//     newBook.classList.add("book");
+//     newBook.textContent = `${book.title} by ${book.author}, ${
+//       book.pages
+//     } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
+//     bookDisplay.insertAdjacentElement("afterbegin", newBook);
+//   }
+// }
 
 function addListener() {
-  const book = document.querySelector(".book");
+  const book = document.querySelector(".book-card");
   book.addEventListener("click", showDetails);
 }
 
 function showDetails(e) {
-  bookDisplay.classList.add("flag");
-  e.target.classList.toggle("expand");
+  if (!this.classList.contains("expand")) {
+    for (child of bookDisplay.children) {
+      child.classList.remove("expand");
+    }
+    this.classList.add("expand");
+  } else {
+    this.classList.remove("expand");
+  }
 }
