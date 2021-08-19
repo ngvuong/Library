@@ -5,53 +5,55 @@ let library = [
     author: "J.R.R. Tolkien",
     pages: 295,
     read: false,
-    recommended: null,
+    rating: null,
   },
 ];
 
 // Book constructor
-function Book() {
-  title = this.title;
-  author = this.author;
-  pages = this.pages;
-  read = this.read;
-  recommended = this.recommended;
+function Book(title, author, pages, read, rating = null) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.rating = rating;
 }
 
 const book1 = new Book();
 book1.title = "Test";
 library.push(book1);
 
-// Add new book form
+const addBookBtn = document.querySelector(".add-book");
 const formOverlay = document.querySelector(".form-overlay");
 const bookForm = document.querySelector(".form");
+const bookList = document.querySelector(".book-list");
+const xClose = document.querySelector("#close");
 
-document.querySelector(".add-book").addEventListener("click", displayForm);
-
-function displayForm() {
-  formOverlay.classList.add("active");
-  document.querySelector("#title").focus();
-  // document.querySelector("#read").addEventListener("click", () => {
-  //   document.querySelector(".recommend").style.display = "block";
-  // });
-  // document.querySelector("#not-read").addEventListener("click", () => {
-  //   document.querySelector(".recommend").style.display = "none";
-  // });
-}
+addBookBtn.addEventListener("click", displayForm);
 
 bookForm.addEventListener("submit", function (e) {
   e.preventDefault();
   addBook(e);
   closeForm(e);
-  console.log(e);
 });
 
 // Closing form
-const closeX = document.querySelector("#close");
 formOverlay.addEventListener("keydown", closeForm);
-closeX.addEventListener("click", closeForm);
+xClose.addEventListener("click", closeForm);
+
+formOverlay.addEventListener("click", (e) => {
+  closeForm(e);
+});
+bookForm.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
+
+function displayForm() {
+  formOverlay.classList.add("active");
+  document.querySelector("#title").focus();
+}
 
 function closeForm(e) {
+  console.log(e);
   if (e.type === "click" || e.type === "submit" || e.key === "Escape") {
     formOverlay.classList.remove("active");
     bookForm.reset();
@@ -59,27 +61,35 @@ function closeForm(e) {
 }
 
 function addBook(e) {
-  const book = new Book();
-  const inputElements = e.target.elements;
-  book.title = inputElements.title.value;
-  book.author = inputElements.author.value;
-  book.pages = inputElements.pages.value;
-  book.read = inputElements.read.value;
-  // book.recommended = inputElements.recommended.value;
+  const inputs = e.target.elements;
+  const { title, author, pages, read } = getBookDetails(inputs);
+  const book = new Book(title, author, pages, read);
   library.push(book);
   displayBooks();
 }
 
+function getBookDetails(inputs) {
+  return {
+    title: inputs.title.value,
+    author: inputs.author.value,
+    pages: inputs.pages.value,
+    read: inputs.read.value,
+  };
+}
+
 function displayBooks() {
-  const bookList = document.querySelector(".book-list");
   bookList.textContent = "";
-  library.forEach((book) => {
-    const newBook = document.createElement("li");
-    newBook.textContent = `${book.title} by ${book.author}, ${book.pages}, ${
-      book.read ? "read" : "not yet read"
-    }, ${book.recommended} `;
-    bookList.append(newBook);
-  });
+  parseBooks();
 }
 
 displayBooks();
+
+function parseBooks() {
+  for (book of library) {
+    const newBook = document.createElement("li");
+    newBook.textContent = `${book.title} by ${book.author}, ${
+      book.pages
+    } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
+    bookList.append(newBook);
+  }
+}
