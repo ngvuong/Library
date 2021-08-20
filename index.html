@@ -13,8 +13,6 @@
     </header>
 
     <div class="form-overlay" tabindex="-1">
-      <p id="close">x</p>
-
       <form action="" class="form">
         <label for="title">Title</label>
         <div>
@@ -31,9 +29,9 @@
         <p>Have you read this book?</p>
         <div>
           <label for="read">Yes</label>
-          <input type="radio" id="read" name="yes" value="true" />
+          <input type="radio" id="read" name="read" value="true" />
           <label for="not-read">No</label>
-          <input type="radio" id="not-read" name="no" value="false" />
+          <input type="radio" id="not-read" name="read" value="false" />
         </div>
         <!-- <p for="recommended">Recommended?</p> -->
         <!-- <div class="recommend">
@@ -42,12 +40,20 @@
             <option value="no">No</option>
           </checkbox>
         </div> -->
-        <button id="submit">Submit</button>
+        <div class="buttons">
+          <button class="btn submit">Submit</button>
+          <input
+            type="button"
+            class="btn cancel"
+            name="cancel"
+            value="Cancel"
+          />
+        </div>
       </form>
     </div>
 
     <main>
-      <button class="add-book">Add Book</button>
+      <button class="btn add-book">+</button>
 
       <section class="book-display"></section>
     </main>

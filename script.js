@@ -30,6 +30,8 @@ const bookDisplay = document.querySelector(".book-display");
 
 addBookBtn.addEventListener("click", displayForm);
 
+document.querySelector(".cancel").addEventListener("click", closeForm);
+
 bookForm.addEventListener("submit", function (e) {
   e.preventDefault();
   addBook(e);
@@ -48,12 +50,12 @@ bookForm.addEventListener("click", (e) => {
 });
 
 function displayForm() {
+  collapseShelf();
   formOverlay.classList.add("active");
   document.querySelector("#title").focus();
 }
 
 function closeForm(e) {
-  console.log(e);
   if (e.type === "click" || e.type === "submit" || e.key === "Escape") {
     formOverlay.classList.remove("active");
     bookForm.reset();
@@ -61,7 +63,6 @@ function closeForm(e) {
 }
 
 function addBook(e) {
-  collapseShelf();
   const inputs = e.target.elements;
   const book = getBookDetails(inputs);
   library.push(book);
@@ -79,14 +80,15 @@ function getBookDetails(inputs) {
 
 function displayBook(book) {
   const newBook = document.createElement("div");
+  const title = document.createElement("div");
   const bookDetails = document.createElement("div");
   bookDetails.innerText = `Author: ${book.author}
    Pages: ${book.pages} 
    ${book.read ? "Read ✓" : "Not yet read"}`;
 
   newBook.classList.add("book-card");
-  newBook.textContent = `${book.title}`;
-  newBook.append(bookDetails);
+  title.textContent = `${book.title}`;
+  newBook.append(title, bookDetails);
   bookDisplay.insertAdjacentElement("afterbegin", newBook);
   addListener(newBook);
 }
@@ -94,17 +96,6 @@ function displayBook(book) {
 for (let book of library) {
   displayBook(book);
 }
-
-// function parseBooks() {
-//   for (let book of library) {
-//     const newBook = document.createElement("div");
-//     newBook.classList.add("book");
-//     newBook.textContent = `${book.title} by ${book.author}, ${
-//       book.pages
-//     } pages, ${book.read ? "read" : "not yet read"}, ${book.rating} `;
-//     bookDisplay.insertAdjacentElement("afterbegin", newBook);
-//   }
-// }
 
 function addListener() {
   const book = document.querySelector(".book-card");
@@ -126,3 +117,5 @@ function collapseShelf() {
     child.classList.remove("expand");
   }
 }
+
+document.querySelector("book-card");
