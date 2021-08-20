@@ -2,6 +2,24 @@
   box-sizing: border-box;
 }
 
+body {
+  /* font-family: "Helvetica Neue", Helvetica, Arial; */
+}
+
+.library {
+  font-size: 5rem;
+  font-weight: 900;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #ffcc20;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.add-book {
+  display: block;
+  margin: 2rem auto;
+}
+
 .form-overlay {
   position: fixed;
   display: none;
@@ -38,6 +56,7 @@
 }
 
 .book-display {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,27 +72,41 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
-  height: 50px;
+  color: white;
+  width: 50%;
+  height: 10%;
   padding: 0.5em;
-  margin: 5px;
+  margin: 0.5px;
   border: 1px solid blue;
-  transition: all 0.5s ease-in-out;
+  transition: background-color 1s ease-in;
+  /* transition: all .5s ease-in-out; */
+  border-radius: 0.5em;
+  background-color: rgb(142, 13, 9);
+
+  box-shadow: -2px 1px rgb(142, 13, 9);
+}
+
+.expand {
+  position: absolute;
+  top: 5%;
+  color: #ffcc20;
+  height: 40vmin;
+  width: 30vmin;
+  font-size: 4vmin;
+  background-color: rgb(142, 13, 9);
+  /* background-image: url(https://images.freecreatives.com/wp-content/uploads/2016/03/Classic-Red-Book-Cover-Texture.jpg);
+  background-size: auto auto;
+  background-repeat: no-repeat; */
 }
 
 .book-card > *:last-child {
   /* transform: translateX(100%); */
   display: none;
 }
-
-.expand {
-  color: #ffcc20;
-  height: 300px;
-  width: 25%;
-  background-image: url(https://images.freecreatives.com/wp-content/uploads/2016/03/Classic-Red-Book-Cover-Texture.jpg);
-  background-size: cover;
-}
-
 .expand > *:last-child {
   display: block;
+}
+
+.book-card:not(.expand):nth-last-child(1) {
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.4);
 }

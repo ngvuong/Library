@@ -61,6 +61,7 @@ function closeForm(e) {
 }
 
 function addBook(e) {
+  collapseShelf();
   const inputs = e.target.elements;
   const book = getBookDetails(inputs);
   library.push(book);
@@ -112,11 +113,16 @@ function addListener() {
 
 function showDetails(e) {
   if (!this.classList.contains("expand")) {
-    for (child of bookDisplay.children) {
-      child.classList.remove("expand");
-    }
+    collapseShelf();
     this.classList.add("expand");
   } else {
     this.classList.remove("expand");
+  }
+  this.scrollIntoView();
+}
+
+function collapseShelf() {
+  for (child of bookDisplay.children) {
+    child.classList.remove("expand");
   }
 }
