@@ -118,4 +118,8 @@ function collapseShelf() {
   }
 }
 
-document.querySelector("book-card");
+// document.querySelector("book-card");
+
+function deleteBook() {
+  this.par;
+}
