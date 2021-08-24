@@ -18,6 +18,11 @@ function Book(title, author, pages, read, rating = null) {
   this.rating = rating;
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+  refreshDisplay();
+};
+
 const book1 = new Book("The Martian", "Andy Weir", 200, true, 5);
 book2 = new Book("I", "me", 321, true);
 library.push(book1, book2);
@@ -107,9 +112,22 @@ function setExpandDisplay(book) {
   return bookDetails;
 }
 
-for (let book of library) {
-  displayBook(book);
+function setReadToggle() {
+  const label = document.createElement("label");
+  const input = document.createElement("input");
+  const span = document.createElement("span");
+  label.classList.add("toggle-read");
+  input.type = "checkbox";
+  input.id = "read";
 }
+
+function refreshDisplay() {
+  bookDisplay.textContent = "";
+  for (let book of library) {
+    displayBook(book);
+  }
+}
+refreshDisplay();
 
 function showDetails() {
   if (!this.classList.contains("expand")) {
