@@ -22,7 +22,7 @@ const book1 = new Book("The Martian", "Andy Weir", 200, true, 5);
 book2 = new Book("I", "me", 321, true);
 library.push(book1, book2);
 
-const addBookBtn = document.querySelector(".add-book");
+const addBookBtn = document.querySelector(".btn-add-book");
 const formOverlay = document.querySelector(".form-overlay");
 const bookForm = document.querySelector(".form");
 const bookDisplay = document.querySelector(".book-display");
@@ -79,30 +79,39 @@ function getBookDetails(inputs) {
 }
 
 function displayBook(book) {
+  const title = setStackDisplay(book);
+  const details = setExpandDisplay(book);
   const newBook = document.createElement("div");
-  const title = document.createElement("div");
-  const bookDetails = document.createElement("div");
-  bookDetails.innerText = `Author: ${book.author}
-   Pages: ${book.pages} 
-   ${book.read ? "Read ✓" : "Not yet read"}`;
-
   newBook.classList.add("book-card");
-  title.textContent = `${book.title}`;
-  newBook.append(title, bookDetails);
+  newBook.append(title, details);
   bookDisplay.insertAdjacentElement("afterbegin", newBook);
-  addListener(newBook);
+  newBook.addEventListener("click", showDetails);
+}
+
+function setStackDisplay(book) {
+  const title = document.createElement("div");
+  title.textContent = `${book.title}`;
+  return title;
+}
+
+function setExpandDisplay(book) {
+  const bookDetails = document.createElement("div");
+  const removeBtn = document.createElement("button");
+  removeBtn.addEventListener("click", () => removeBook(book));
+  removeBtn.textContent = "Remove Book";
+  removeBtn.classList.add("btn-remove-book", "btn");
+  bookDetails.innerText = `${book.author}
+   ${book.pages} pages 
+   ${book.read ? "Read ✓" : "Not read"}`;
+  bookDetails.append(removeBtn);
+  return bookDetails;
 }
 
 for (let book of library) {
   displayBook(book);
 }
 
-function addListener() {
-  const book = document.querySelector(".book-card");
-  book.addEventListener("click", showDetails);
-}
-
-function showDetails(e) {
+function showDetails() {
   if (!this.classList.contains("expand")) {
     collapseShelf();
     this.classList.add("expand");
@@ -118,8 +127,8 @@ function collapseShelf() {
   }
 }
 
-// document.querySelector("book-card");
-
-function deleteBook() {
-  this.par;
+function removeBook(book) {
+  const bookNode = document.querySelector(".expand");
+  bookDisplay.removeChild(bookNode);
+  library.splice(library.indexOf(book), 1);
 }

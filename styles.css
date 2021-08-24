@@ -3,12 +3,12 @@
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw;
+  height: 100vh; */
   font-family: "Helvetica Neue", Helvetica, Arial;
   font-size: 3vmin;
   background-color: rgb(33, 41, 38);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .library {
@@ -34,7 +34,7 @@ body {
   border-radius: 5%;
 }
 
-.add-book {
+.btn-add-book {
   display: block;
   width: 1.5em;
   height: 1.5em;
@@ -44,6 +44,12 @@ body {
   margin: 2rem auto;
   border-radius: 50%;
   border-style: none;
+}
+
+.btn-remove-book {
+  display: block;
+  margin: 10% 0;
+  background-color: rgb(112, 131, 194);
 }
 
 .form-overlay {
@@ -129,7 +135,7 @@ body {
 .expand {
   position: absolute;
   flex-direction: row;
-  top: 50%;
+  top: 20%;
   color: #ffcc20;
   width: 60vmin;
   height: 45vmin;
