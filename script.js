@@ -74,7 +74,7 @@ function getBookDetails(inputs) {
     inputs.title.value,
     inputs.author.value,
     inputs.pages.value,
-    inputs.read.value
+    inputs.read.checked
   );
 }
 

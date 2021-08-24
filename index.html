@@ -28,19 +28,12 @@
           <input type="text" id="pages" />
         </div>
         <p>Have you read this book?</p>
-        <div>
+        <label class="toggle-read">
           <!-- <label for="read">Yes</label> -->
-          <input type="radio" id="read" name="read" value="true" />
-          <!-- <label for="not-read">No</label> -->
-          <input type="radio" id="not-read" name="read" value="false" />
-        </div>
-        <!-- <p for="recommended">Recommended?</p> -->
-        <!-- <div class="recommend">
-          <checkbox id="recommended">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </checkbox>
-        </div> -->
+          <input type="checkbox" id="read" name="read" />
+          <span class="slider"></span>
+        </label>
+
         <div class="buttons">
           <button class="btn submit">Submit</button>
           <input
