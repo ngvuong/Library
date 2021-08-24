@@ -5,7 +5,6 @@ let library = [
     author: "J.R.R. Tolkien",
     pages: 295,
     read: false,
-    rating: null,
   },
 ];
 
@@ -15,12 +14,11 @@ function Book(title, author, pages, read, rating = null) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.rating = rating;
 }
 
 Book.prototype.toggleRead = function () {
   this.read = !this.read;
-  refreshDisplay();
+  // refreshDisplay();
 };
 
 const book1 = new Book("The Martian", "Andy Weir", 200, true, 5);
@@ -101,24 +99,49 @@ function setStackDisplay(book) {
 
 function setExpandDisplay(book) {
   const bookDetails = document.createElement("div");
+  // const removeBtn = document.createElement("button");
+  const readToggle = setReadToggle();
+  readToggle.firstChild.checked = book.read ? true : false;
+  readToggle.firstChild.addEventListener("change", () => {
+    book.toggleRead();
+    setBookDetails(book, bookDetails, readToggle);
+  });
+  // removeBtn.addEventListener("click", () => removeBook(book));
+  // removeBtn.textContent = "Remove Book";
+  // removeBtn.classList.add("btn-remove-book", "btn");
+  // bookDetails.innerText = `${book.author}
+  //  ${book.pages} pages
+  //  ${readToggle.firstChild.checked ? "Read ✓" : "Not read"}`;
+  setBookDetails(book, bookDetails, readToggle);
+  // bookDetails.append(readToggle, removeBtn);
+
+  return bookDetails;
+}
+
+function setBookDetails(book, details, readToggle) {
   const removeBtn = document.createElement("button");
-  removeBtn.addEventListener("click", () => removeBook(book));
-  removeBtn.textContent = "Remove Book";
   removeBtn.classList.add("btn-remove-book", "btn");
-  bookDetails.innerText = `${book.author}
+  removeBtn.textContent = "Remove Book";
+
+  removeBtn.addEventListener("click", () => removeBook(book));
+
+  details.innerText = `${book.author}
    ${book.pages} pages 
    ${book.read ? "Read ✓" : "Not read"}`;
-  bookDetails.append(removeBtn);
-  return bookDetails;
+  details.append(readToggle, removeBtn);
 }
 
 function setReadToggle() {
   const label = document.createElement("label");
   const input = document.createElement("input");
   const span = document.createElement("span");
-  label.classList.add("toggle-read");
+  label.classList.add("toggle-read", "card");
   input.type = "checkbox";
   input.id = "read";
+  span.classList.add("slider");
+  label.append(input, span);
+
+  return label;
 }
 
 function refreshDisplay() {

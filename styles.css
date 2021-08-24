@@ -170,6 +170,10 @@ body {
   height: 5%;
 }
 
+.toggle-read.card {
+  width: 8vmin;
+}
+
 .toggle-read #read {
   opacity: 0;
   width: 0;
