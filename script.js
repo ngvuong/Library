@@ -18,7 +18,6 @@ function Book(title, author, pages, read, rating = null) {
 
 Book.prototype.toggleRead = function () {
   this.read = !this.read;
-  // refreshDisplay();
 };
 
 const book1 = new Book("The Martian", "Andy Weir", 200, true, 5);
@@ -29,7 +28,6 @@ const addBookBtn = document.querySelector(".btn-add-book");
 const formOverlay = document.querySelector(".form-overlay");
 const bookForm = document.querySelector(".form");
 const bookDisplay = document.querySelector(".book-display");
-// const xClose = document.querySelector("#close");
 
 addBookBtn.addEventListener("click", displayForm);
 
@@ -43,7 +41,6 @@ bookForm.addEventListener("submit", function (e) {
 
 // Closing form
 formOverlay.addEventListener("keydown", closeForm);
-// xClose.addEventListener("click", closeForm);
 
 formOverlay.addEventListener("click", (e) => {
   closeForm(e);
@@ -100,29 +97,34 @@ function setStackDisplay(book) {
 function setExpandDisplay(book) {
   const bookDetails = document.createElement("div");
   // const removeBtn = document.createElement("button");
-  const readToggle = setReadToggle();
-  readToggle.firstChild.checked = book.read ? true : false;
-  readToggle.firstChild.addEventListener("change", () => {
-    book.toggleRead();
-    setBookDetails(book, bookDetails, readToggle);
-  });
+  // const readToggle = setReadToggle();
+  // readToggle.firstChild.checked = book.read ? true : false;
+  // readToggle.firstChild.addEventListener("change", () => {
+  //   book.toggleRead();
+  //   setBookDetails(book, bookDetails, readToggle);
+  // });
   // removeBtn.addEventListener("click", () => removeBook(book));
   // removeBtn.textContent = "Remove Book";
   // removeBtn.classList.add("btn-remove-book", "btn");
   // bookDetails.innerText = `${book.author}
   //  ${book.pages} pages
   //  ${readToggle.firstChild.checked ? "Read ✓" : "Not read"}`;
-  setBookDetails(book, bookDetails, readToggle);
+  setBookDetails(book, bookDetails);
   // bookDetails.append(readToggle, removeBtn);
 
   return bookDetails;
 }
 
-function setBookDetails(book, details, readToggle) {
+function setBookDetails(book, details) {
   const removeBtn = document.createElement("button");
+  const readToggle = setReadToggle();
   removeBtn.classList.add("btn-remove-book", "btn");
   removeBtn.textContent = "Remove Book";
-
+  readToggle.firstChild.checked = book.read ? true : false;
+  readToggle.firstChild.addEventListener("change", () => {
+    book.toggleRead();
+    setBookDetails(book, details);
+  });
   removeBtn.addEventListener("click", () => removeBook(book));
 
   details.innerText = `${book.author}

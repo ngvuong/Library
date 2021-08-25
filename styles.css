@@ -9,7 +9,6 @@ body {
   font-size: 3vmin;
   background-color: rgb(33, 41, 38);
   /* overflow-y: hidden; */
-  /* word-wrap: break-word; */
 }
 
 .library {
@@ -23,7 +22,6 @@ body {
 }
 
 .btn {
-  /* width: 1.5em; */
   height: 1.5em;
   color: white;
   font-size: 3vmin;
@@ -73,6 +71,7 @@ body {
 
 .prompt {
   font-weight: bold;
+  font-size: 1.5em;
 }
 
 .form {
@@ -87,10 +86,10 @@ body {
   border-radius: 5%;
 }
 
-.form input[type="text"] {
+.form input[type="text"],
+.form input[type="number"] {
   width: 75%;
   display: block;
-  box-sizing: border-box;
   font-size: 3vmin;
   padding: 10px;
   margin: auto;
@@ -131,14 +130,11 @@ body {
 .expand {
   position: absolute;
   flex-direction: row;
-  /* top: 2%; */
   color: #ffcc20;
   width: 60vmin;
   height: 45vmin;
   font-size: 4vmin;
   background-color: rgb(142, 13, 9);
-  /* background-image: url(./cover-texture.jpg); */
-  /* background-size: cover; */
   z-index: 1;
   transform: rotate3d(0, 0, 1, 90deg);
   border-bottom: 1em solid black;
@@ -150,6 +146,7 @@ body {
 
 .expand div {
   transform: rotate3d(0, 0, 1, -90deg);
+  width: 100%;
 }
 
 .book-card > *:last-child {
