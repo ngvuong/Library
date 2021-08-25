@@ -246,6 +246,11 @@ input:checked + .slider:before {
   .toggle-read {
     line-height: 50%;
   }
+  .book-card:not(.expand):hover {
+    color: rgba(255, 204, 32, 1);
+    box-shadow: 0 0 0.5em black;
+    width: 95%;
+  }
 }
 
 @media (max-width: 500px) {
