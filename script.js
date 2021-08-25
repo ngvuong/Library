@@ -127,7 +127,7 @@ function setBookDetails(book, details, readToggle) {
 
   details.innerText = `${book.author}
    ${book.pages} pages 
-   ${book.read ? "Read ✓" : "Not read"}`;
+   ${book.read ? "Read ✓  " : "Not read"}`;
   details.append(readToggle, removeBtn);
 }
 
@@ -137,7 +137,6 @@ function setReadToggle() {
   const span = document.createElement("span");
   label.classList.add("toggle-read", "card");
   input.type = "checkbox";
-  input.id = "read";
   span.classList.add("slider");
   label.append(input, span);
 

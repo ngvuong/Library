@@ -9,6 +9,7 @@ body {
   font-size: 3vmin;
   background-color: rgb(33, 41, 38);
   /* overflow-y: hidden; */
+  /* word-wrap: break-word; */
 }
 
 .library {
@@ -80,8 +81,8 @@ body {
   justify-content: center;
   align-items: center;
   background: rgb(114, 216, 177);
-  height: 80vmin;
   width: 50vmin;
+  height: 80vmin;
   /* transition: all 0.5s ease-in-out; */
   border-radius: 5%;
 }
@@ -94,12 +95,6 @@ body {
   padding: 10px;
   margin: auto;
   background: rgba(255, 255, 255, 0.5);
-}
-
-.form input[type="radio"] {
-  /* width:  */
-  font-size: 2vmin;
-  visibility: hidden;
 }
 
 #submit {
@@ -122,10 +117,10 @@ body {
   align-items: center;
   color: white;
   width: 50%;
-  height: 10%;
+  /* height: 20%; */
   padding: 0.5em;
   margin: 0.5px;
-  border: 1px solid rgba(0, 0, 200, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
   /* transition: background-color 1s ease-in, height 1s ease-in; */
   transition: width 0.5s ease-in-out, transform 0.5s ease-in-out;
   /* transition: all 0.5s ease-in-out; */
@@ -141,11 +136,16 @@ body {
   width: 60vmin;
   height: 45vmin;
   font-size: 4vmin;
-  /* background-color: rgb(142, 13, 9); */
-  background-image: url(./cover-texture.jpg);
+  background-color: rgb(142, 13, 9);
+  /* background-image: url(./cover-texture.jpg); */
   /* background-size: cover; */
-  transform: rotate3d(0, 0, 1, 90deg);
   z-index: 1;
+  transform: rotate3d(0, 0, 1, 90deg);
+  border-bottom: 1em solid black;
+}
+
+.book-card *:first-child {
+  word-break: break-word;
 }
 
 .expand div {
@@ -165,16 +165,17 @@ body {
 
 .toggle-read {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 15%;
   height: 5%;
+  /* line-height: 90%; */
 }
 
 .toggle-read.card {
   width: 8vmin;
 }
 
-.toggle-read #read {
+.toggle-read input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -204,14 +205,46 @@ body {
   border-radius: 50%;
 }
 
-#read:checked + .slider {
+input:checked + .slider {
   background-color: rgb(46, 59, 235);
 }
 
-#read:focus + .slider {
+input:focus + .slider {
   box-shadow: 0 0 2px rgb(46, 59, 235);
 }
 
-#read:checked + .slider:before {
+input:checked + .slider:before {
   transform: translateX(90%);
+}
+
+@media (max-width: 768px) {
+  .book-card {
+    width: 80%;
+    font-size: 8vmin;
+  }
+
+  .expand {
+    top: 15%;
+    width: 70vmin;
+    height: 55vmin;
+    font-size: 6vmin;
+  }
+
+  .toggle-read {
+    line-height: 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .expand {
+    top: 25%;
+    width: 95vmin;
+    height: 80vmin;
+    font-size: 8vmin;
+  }
+  .form {
+    width: 70vmin;
+    height: 95vmin;
+    font-size: 5vmin;
+  }
 }
