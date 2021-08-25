@@ -1,50 +1,40 @@
 // Library: book storage
-let library = [
-  {
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien",
-    pages: 295,
-    read: false,
-  },
-];
+let library = [];
 
 // Book constructor
-function Book(title, author, pages, read, rating = null) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+function Book(book) {
+  this.title = book.title;
+  this.author = book.author;
+  this.pages = book.pages;
+  this.read = book.read;
 }
 
 Book.prototype.toggleRead = function () {
   this.read = !this.read;
+  storeLocal();
 };
 
-const book1 = new Book("The Martian", "Andy Weir", 200, true, 5);
-book2 = new Book("I", "me", 321, true);
-library.push(book1, book2);
-
 const addBookBtn = document.querySelector(".btn-add-book");
+const cancelBtn = document.querySelector(".cancel");
 const formOverlay = document.querySelector(".form-overlay");
 const bookForm = document.querySelector(".form");
 const bookDisplay = document.querySelector(".book-display");
+const storage = window.localStorage;
+const storageAvailable = checkStorage("localStorage") ? true : false;
 
 addBookBtn.addEventListener("click", displayForm);
-
-document.querySelector(".cancel").addEventListener("click", closeForm);
-
+cancelBtn.addEventListener("click", closeForm);
 bookForm.addEventListener("submit", function (e) {
   e.preventDefault();
   addBook(e);
   closeForm(e);
 });
 
-// Closing form
 formOverlay.addEventListener("keydown", closeForm);
-
 formOverlay.addEventListener("click", (e) => {
   closeForm(e);
 });
+
 bookForm.addEventListener("click", (e) => {
   e.stopPropagation();
 });
@@ -66,16 +56,19 @@ function addBook(e) {
   const inputs = e.target.elements;
   const book = getBookDetails(inputs);
   library.push(book);
+  if (storageAvailable) {
+    storeLocal();
+  }
   displayBook(book);
 }
 
 function getBookDetails(inputs) {
-  return new Book(
-    inputs.title.value,
-    inputs.author.value,
-    inputs.pages.value,
-    inputs.read.checked
-  );
+  return new Book({
+    title: inputs.title.value,
+    author: inputs.author.value,
+    pages: inputs.pages.value,
+    read: inputs.read.checked,
+  });
 }
 
 function displayBook(book) {
@@ -97,7 +90,6 @@ function setStackDisplay(book) {
 function setExpandDisplay(book) {
   const bookDetails = document.createElement("div");
   setBookDetails(book, bookDetails);
-
   return bookDetails;
 }
 
@@ -107,7 +99,10 @@ function setBookDetails(book, details) {
 
   removeBtn.classList.add("btn-remove-book", "btn");
   removeBtn.textContent = "Remove Book";
-  removeBtn.addEventListener("click", () => removeBook(book));
+  removeBtn.addEventListener("click", () => {
+    removeBook(book);
+    storeLocal();
+  });
 
   readToggle.firstChild.checked = book.read ? true : false;
   readToggle.firstChild.addEventListener("change", () => {
@@ -133,14 +128,6 @@ function setReadToggle() {
   return label;
 }
 
-function refreshDisplay() {
-  bookDisplay.textContent = "";
-  for (let book of library) {
-    displayBook(book);
-  }
-}
-refreshDisplay();
-
 function showDetails() {
   if (!this.classList.contains("expand")) {
     collapseShelf();
@@ -161,6 +148,10 @@ function removeBook(book) {
   const bookNode = document.querySelector(".expand");
   bookDisplay.removeChild(bookNode);
   library.splice(library.indexOf(book), 1);
+}
+
+function storeLocal() {
+  storage.setItem("library", JSON.stringify(library));
 }
 
 function checkStorage(type) {
@@ -184,12 +175,21 @@ function checkStorage(type) {
   }
 }
 
-const storage = window.localStorage;
-if (checkStorage("localStorage")) {
-  library.forEach((book, i) => {
-    storage.setItem(i + 1, JSON.stringify(book));
-  });
-  console.log(storage);
-} else {
-  console.log("no");
+function loadLocal() {
+  if (storageAvailable && storage.length) {
+    library = [];
+    for (book of JSON.parse(storage["library"])) {
+      library.push(new Book(book));
+    }
+  }
 }
+
+function loadDisplay() {
+  bookDisplay.textContent = "";
+  loadLocal();
+  for (let book of library) {
+    displayBook(book);
+  }
+}
+
+loadDisplay();
