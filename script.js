@@ -96,21 +96,7 @@ function setStackDisplay(book) {
 
 function setExpandDisplay(book) {
   const bookDetails = document.createElement("div");
-  // const removeBtn = document.createElement("button");
-  // const readToggle = setReadToggle();
-  // readToggle.firstChild.checked = book.read ? true : false;
-  // readToggle.firstChild.addEventListener("change", () => {
-  //   book.toggleRead();
-  //   setBookDetails(book, bookDetails, readToggle);
-  // });
-  // removeBtn.addEventListener("click", () => removeBook(book));
-  // removeBtn.textContent = "Remove Book";
-  // removeBtn.classList.add("btn-remove-book", "btn");
-  // bookDetails.innerText = `${book.author}
-  //  ${book.pages} pages
-  //  ${readToggle.firstChild.checked ? "Read ✓" : "Not read"}`;
   setBookDetails(book, bookDetails);
-  // bookDetails.append(readToggle, removeBtn);
 
   return bookDetails;
 }
@@ -118,14 +104,16 @@ function setExpandDisplay(book) {
 function setBookDetails(book, details) {
   const removeBtn = document.createElement("button");
   const readToggle = setReadToggle();
+
   removeBtn.classList.add("btn-remove-book", "btn");
   removeBtn.textContent = "Remove Book";
+  removeBtn.addEventListener("click", () => removeBook(book));
+
   readToggle.firstChild.checked = book.read ? true : false;
   readToggle.firstChild.addEventListener("change", () => {
     book.toggleRead();
     setBookDetails(book, details);
   });
-  removeBtn.addEventListener("click", () => removeBook(book));
 
   details.innerText = `${book.author}
    ${book.pages} pages 
@@ -173,4 +161,35 @@ function removeBook(book) {
   const bookNode = document.querySelector(".expand");
   bookDisplay.removeChild(bookNode);
   library.splice(library.indexOf(book), 1);
+}
+
+function checkStorage(type) {
+  let storage;
+  try {
+    storage = window[type];
+    let x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      (e.code === 22 ||
+        e.code === 1014 ||
+        e.name === "QuotaExceededError" ||
+        e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+      storage &&
+      storage.length !== 0
+    );
+  }
+}
+
+const storage = window.localStorage;
+if (checkStorage("localStorage")) {
+  library.forEach((book, i) => {
+    storage.setItem(i + 1, JSON.stringify(book));
+  });
+  console.log(storage);
+} else {
+  console.log("no");
 }
