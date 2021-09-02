@@ -1,18 +1,19 @@
 // Library: book storage
 let library = [];
 
-// Book constructor
-function Book(book) {
-  this.title = book.title;
-  this.author = book.author;
-  this.pages = book.pages;
-  this.read = book.read;
-}
+class Book {
+  constructor(book) {
+    this.title = book.title;
+    this.author = book.author;
+    this.pages = book.pages;
+    this.read = book.read;
+  }
 
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-  storeLocal();
-};
+  toggleRead() {
+    this.read = !this.read;
+    storeLocal();
+  }
+}
 
 const addBookBtn = document.querySelector(".btn-add-book");
 const cancelBtn = document.querySelector(".cancel");
