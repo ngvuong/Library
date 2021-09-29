@@ -179,7 +179,7 @@ function checkStorage(type) {
 function loadLocal() {
   if (storageAvailable && storage.length) {
     library = [];
-    for (book of JSON.parse(storage["library"])) {
+    for (let book of JSON.parse(storage["library"])) {
       library.push(new Book(book));
     }
   }
